@@ -1,0 +1,12 @@
+# Security Configuration Template
+# Copy this to your environment variables
+
+# REQUIRED: Set these to your secret values
+AUTH_TOKEN=your_secret_auth_token_here
+SECURITY_KEY=hidden_security_key_12345
+PROTECTION_MODE=enabled
+
+# Optional: Customize security settings
+SECURITY_LEVEL=high
+LOG_VIOLATIONS=true
+AUTO_ACTIVATE=true

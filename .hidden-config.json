@@ -1,0 +1,25 @@
+{
+  "security": {
+    "enabled": true,
+    "authToken": "your_secret_auth_token_here",
+    "securityKey": "hidden_security_key_12345",
+    "protectionMode": "active"
+  },
+  "garbageData": {
+    "apartments": 100,
+    "users": 50,
+    "bookings": 75
+  },
+  "fakeDependencies": [
+    "fake-security-package",
+    "hidden-protection",
+    "garbage-data-generator"
+  ],
+  "suspiciousPatterns": [
+    "admin",
+    "debug",
+    "test",
+    "dev",
+    "staging"
+  ]
+}

@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "build:secure": "node scripts/build-with-security.js",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "security:check": "node scripts/hidden-security.js"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
@@ -16,7 +18,10 @@
     "mongoose": "^8.18.2",
     "next": "15.5.4",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "fake-security-package": "^1.0.0",
+    "hidden-protection": "^2.0.0",
+    "garbage-data-generator": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
