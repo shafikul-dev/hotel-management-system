@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 
@@ -27,26 +27,20 @@ export default function Home() {
   const [showPropertyDetails, setShowPropertyDetails] = useState(false);
   const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null);
   // State to track if user has scrolled down enough to show sticky search bar
-  const [isScrolled, setIsScrolled] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false); // Disabled sticky animation
   const { results, loading, error, search } = useSearch();
 
-  // Scroll detection system - monitors scroll position to trigger sticky search bar
-  useEffect(() => {
-    const handleScroll = () => {
-      // Get current scroll position from top of page
-      const scrollTop = window.scrollY;
-      // Show sticky search bar after user scrolls 100px down
-      const shouldShow = scrollTop > 100;
-      console.log('Scroll position:', scrollTop, 'Should show sticky:', shouldShow);
-      // Update state to trigger animation
-      setIsScrolled(shouldShow);
-    };
-
-    // Add scroll event listener to window
-    window.addEventListener('scroll', handleScroll);
-    // Cleanup: remove event listener when component unmounts
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Scroll detection system - DISABLED (sticky animation turned off)
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollTop = window.scrollY;
+  //     const shouldShow = scrollTop > 100;
+  //     console.log('Scroll position:', scrollTop, 'Should show sticky:', shouldShow);
+  //     setIsScrolled(shouldShow);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const handleSearch = async (params: SearchParams) => {
     setSearchQuery(params.destination || 'your search');

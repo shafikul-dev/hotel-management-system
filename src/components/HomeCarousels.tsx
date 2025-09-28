@@ -33,7 +33,7 @@ export default function HomeCarousels({ onPropertyClick }: HomeCarouselsProps = 
   };
 
   // Carousel navigation functions
-  const scrollCarousel = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right', sectionId: string) => {
+  const scrollCarousel = (ref: React.RefObject<HTMLDivElement | null>, direction: 'left' | 'right', sectionId: string) => {
     if (!ref.current) return;
     
     const scrollAmount = 300; // Adjust this value to control scroll distance
@@ -418,33 +418,27 @@ export default function HomeCarousels({ onPropertyClick }: HomeCarouselsProps = 
       <section>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-900">Check out homes in Tokyo</h2>
-          <button className="text-gray-600 hover:text-gray-900">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-        {/* Navigation arrows - aligned with header */}
-        <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={() => scrollCarousel(londonRef, 'left', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => scrollCarousel(londonRef, 'right', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => scrollCarousel(tokyoRef, 'left', 'tokyo')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollCarousel(tokyoRef, 'right', 'tokyo')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
         
-        <div ref={londonRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
+        <div ref={tokyoRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
           {Array.from({ length: 6 }).map((_, index) => (
             <PropertyCard key={`tokyo-${index}`} imageIndex={index} property={{
               _id: `tokyo-${index}`,
@@ -473,33 +467,27 @@ export default function HomeCarousels({ onPropertyClick }: HomeCarouselsProps = 
       <section>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-900">Popular homes in Melbourne</h2>
-          <button className="text-gray-600 hover:text-gray-900">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-        {/* Navigation arrows - aligned with header */}
-        <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={() => scrollCarousel(londonRef, 'left', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => scrollCarousel(londonRef, 'right', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => scrollCarousel(melbourneRef, 'left', 'melbourne')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollCarousel(melbourneRef, 'right', 'melbourne')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
         
-        <div ref={londonRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
+        <div ref={melbourneRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
           {Array.from({ length: 6 }).map((_, index) => (
             <PropertyCard key={`melbourne-${index}`} imageIndex={index} property={{
               _id: `melbourne-${index}`,
@@ -528,33 +516,27 @@ export default function HomeCarousels({ onPropertyClick }: HomeCarouselsProps = 
       <section>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-gray-900">Stay in Britain</h2>
-          <button className="text-gray-600 hover:text-gray-900">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-        {/* Navigation arrows - aligned with header */}
-        <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={() => scrollCarousel(londonRef, 'left', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => scrollCarousel(londonRef, 'right', 'london')}
-            className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => scrollCarousel(britainRef, 'left', 'britain')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollCarousel(britainRef, 'right', 'britain')}
+              className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
         
-        <div ref={londonRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
+        <div ref={britainRef} className="flex overflow-x-auto scrollbar-hide pb-4 space-x-4">
           {Array.from({ length: 6 }).map((_, index) => (
             <PropertyCard key={`britain-${index}`} imageIndex={index} property={{
               _id: `britain-${index}`,

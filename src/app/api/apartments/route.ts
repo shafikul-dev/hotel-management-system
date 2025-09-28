@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
-import Apartment from '@/models/Apartment';
+import Apartment, { IApartment } from '@/models/Apartment';
+import type { FilterQuery, SortOrder } from 'mongoose';
+
+// Helper filter types to avoid using `any`
+type NumberRangeFilter = { $gte?: number; $lte?: number };
+type NumberGteFilter = { $gte: number };
+type StringInFilter = { $in: string[] };
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,43 +32,49 @@ export async function GET(request: NextRequest) {
     const getAll = searchParams.get('getAll') === 'true';
 
     // Build query object
-    let query: any = {};
+    const query: FilterQuery<IApartment> = {};
 
     // City filter
     if (city) {
-      query.city = { $regex: city, $options: 'i' };
+      // Regex text search (case-insensitive)
+      query.city = { $regex: city, $options: 'i' } as unknown as FilterQuery<IApartment>['city'];
     }
 
     // Country filter
     if (country) {
-      query.country = { $regex: country, $options: 'i' };
+      query.country = { $regex: country, $options: 'i' } as unknown as FilterQuery<IApartment>['country'];
     }
 
     // Price range filter
     if (minPrice || maxPrice) {
-      query.price = {};
-      if (minPrice) query.price.$gte = parseFloat(minPrice);
-      if (maxPrice) query.price.$lte = parseFloat(maxPrice);
+      const priceFilter: NumberRangeFilter = {};
+      if (minPrice) priceFilter.$gte = parseFloat(minPrice);
+      if (maxPrice) priceFilter.$lte = parseFloat(maxPrice);
+      query.price = priceFilter as unknown as FilterQuery<IApartment>['price'];
     }
 
     // Rating filter
     if (minRating) {
-      query.rating = { $gte: parseFloat(minRating) };
+      const ratingFilter: NumberGteFilter = { $gte: parseFloat(minRating) };
+      query.rating = ratingFilter as unknown as FilterQuery<IApartment>['rating'];
     }
 
     // Guest capacity filter
     if (maxGuests) {
-      query.maxGuests = { $gte: parseInt(maxGuests) };
+      const guestsFilter: NumberGteFilter = { $gte: parseInt(maxGuests) };
+      query.maxGuests = guestsFilter as unknown as FilterQuery<IApartment>['maxGuests'];
     }
 
     // Bedrooms filter
     if (bedrooms) {
-      query.bedrooms = { $gte: parseInt(bedrooms) };
+      const bedroomsFilter: NumberGteFilter = { $gte: parseInt(bedrooms) };
+      query.bedrooms = bedroomsFilter as unknown as FilterQuery<IApartment>['bedrooms'];
     }
 
     // Bathrooms filter
     if (bathrooms) {
-      query.bathrooms = { $gte: parseInt(bathrooms) };
+      const bathroomsFilter: NumberGteFilter = { $gte: parseInt(bathrooms) };
+      query.bathrooms = bathroomsFilter as unknown as FilterQuery<IApartment>['bathrooms'];
     }
 
     // Guest favorite filter
@@ -73,11 +85,12 @@ export async function GET(request: NextRequest) {
     // Amenities filter
     if (amenities) {
       const amenitiesArray = amenities.split(',').map(a => a.trim());
-      query.amenities = { $in: amenitiesArray };
+      const amenitiesFilter: StringInFilter = { $in: amenitiesArray };
+      query.amenities = amenitiesFilter as unknown as FilterQuery<IApartment>['amenities'];
     }
 
     // Build sort object
-    const sortObj: any = {};
+    const sortObj: Record<string, SortOrder> = {};
     sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
     // Execute query
